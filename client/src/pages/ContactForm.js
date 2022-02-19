@@ -17,7 +17,7 @@ const ContactForm = (props) => {
   const onSubmit = async (e) => {
     e.preventDefault();
     if (id) {
-      const res = await fetch("/api/contact", {
+      const res = await fetch("http://phonedirmern.herokuapp.com/api/contact", {
         method: "PATCH",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ _id: currentContact._id, ...updatedContact }),
@@ -27,11 +27,14 @@ const ContactForm = (props) => {
       }
     } else {
       console.log(currentContact);
-      const res = await fetch("/api/contact/", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ ...currentContact, _id: null }),
-      });
+      const res = await fetch(
+        "http://phonedirmern.herokuapp.com/api/contact/",
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ ...currentContact, _id: null }),
+        }
+      );
       if (res.ok) {
         navigate(-1);
       }
@@ -41,7 +44,9 @@ const ContactForm = (props) => {
   useEffect(() => {
     if (id) {
       (async () => {
-        const res = await fetch(`/api/contact/${id}`);
+        const res = await fetch(
+          `http://phonedirmern.herokuapp.com/api/contact/${id}`
+        );
         if (res.ok) {
           const json = await res.json();
           setCurrentContact(json);

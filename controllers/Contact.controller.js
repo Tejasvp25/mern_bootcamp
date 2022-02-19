@@ -28,7 +28,7 @@ const getContact = async (req, res) => {
 const updateContact = async (req, res) => {
   const { firstName, lastName, email, phone, pictureUrl, _id } = req.body;
   try {
-    const contact = await Contact.findOne({ id: _id });
+    const contact = await Contact.findOne({ _id });
     if (contact) {
       contact.firstName = firstName || contact.firstName;
       contact.lastName = lastName || contact.lastName;
