@@ -14,7 +14,6 @@
     "uuid": "^8.3.2",
     "web-vitals": "^2.1.0"
   },
-  "proxy": "https://phonedirectorymernstack.herokuapp.com/",
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",

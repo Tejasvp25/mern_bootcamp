@@ -17,20 +17,19 @@ const ContactForm = (props) => {
   const onSubmit = async (e) => {
     e.preventDefault();
     if (id) {
-      delete currentContact.__v;
-      const res = await fetch("/api/contacts/", {
+      const res = await fetch("/api/contact", {
         method: "PATCH",
-        headers: {
-          "Content-type": "application/json;",
-        },
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ _id: currentContact._id, ...updatedContact }),
       });
+      if (res.ok) {
+        navigate(-1);
+      }
     } else {
-      const res = await fetch("/api/contacts/", {
+      console.log(currentContact);
+      const res = await fetch("/api/contact/", {
         method: "POST",
-        headers: {
-          "Content-type": "application/json;",
-        },
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ ...currentContact, _id: null }),
       });
       if (res.ok) {

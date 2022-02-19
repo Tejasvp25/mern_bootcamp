@@ -2,6 +2,7 @@ import React from "react";
 import ContactCard from "../components/contactcard/ContactCard";
 import { useState, useEffect } from "react";
 import { v4 as uuid } from "uuid";
+import { useNavigate } from "react-router-dom";
 
 const SearchIcon = () => (
   <svg
@@ -74,9 +75,10 @@ const AddIcon = () => (
 const Search = () => {
   const [contacts, setContacts] = useState([]);
   const [loading, setLoading] = useState(true);
+  const navigate = useNavigate();
   useEffect(() => {
     (async () => {
-      const res = await fetch("/api/contacts");
+      const res = await fetch("/api/contact");
       if (res.ok) {
         const json = await res.json();
         json && setContacts(json);
@@ -87,9 +89,10 @@ const Search = () => {
   const onDelete = async (id) => {
     await fetch(`/api/contact`, {
       method: "DELETE",
+      headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ _id: id }),
     });
-    setContacts(contacts.filter((contact) => contact.id !== id));
+    setContacts(contacts.filter((contact) => contact._id !== id));
   };
   return (
     <div className="container">
@@ -104,7 +107,12 @@ const Search = () => {
               <SearchIcon />
               &nbsp; Search
             </button>
-            <button className="btn btn-primary btn-sm m-2">
+            <button
+              className="btn btn-primary btn-sm m-2"
+              onClick={() => {
+                navigate("/contact");
+              }}
+            >
               <AddIcon />
               &nbsp; Add
             </button>
