@@ -1,0 +1,16 @@
+{
+  "name": "phone_directory",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/Tejasvp25/mern_bootcamp.git",
+  "author": "tejasvp25 <tejasvp25@gmail.com>",
+  "license": "MIT",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.17.3",
+    "mongoose": "^6.2.2"
+  }
+}
