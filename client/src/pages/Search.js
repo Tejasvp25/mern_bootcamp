@@ -75,6 +75,7 @@ const AddIcon = () => (
 const Search = () => {
   const [contacts, setContacts] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [search, setSearch] = useState("");
   const navigate = useNavigate();
   useEffect(() => {
     (async () => {
@@ -94,14 +95,32 @@ const Search = () => {
     });
     setContacts(contacts.filter((contact) => contact._id !== id));
   };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      const res = await fetch(`/api/contact?search=${search}`);
+      if (res.ok) {
+        setContacts(await res.json());
+        setLoading(false);
+      }
+    } catch (error) {}
+  };
+
   return (
     <div className="container">
       <center>
         <h1 className="mt-4">MERN Phone Directory</h1>
         <br />
         <div className="container justify-content-center">
-          <form>
-            <input class="form-control wd-medium" />
+          <form onSubmit={handleSubmit}>
+            <input
+              class="form-control wd-medium"
+              onChange={(e) => {
+                setSearch(e.target.value);
+              }}
+              value={search}
+            />
             <br />
             <button className="btn btn-primary btn-sm m-2">
               <SearchIcon />
